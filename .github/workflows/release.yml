@@ -85,10 +85,8 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     needs: [build-windows, build-linux, build-macos]
-    # Ключевое исправление: добавляем разрешения
     permissions:
-      contents: write  # Разрешение на запись в репозиторий
-      id-token: write  # Для аутентификации
+      contents: write
       
     steps:
       - name: Download artifacts
@@ -103,10 +101,11 @@ jobs:
           mv artifacts/sanity-exporter-macos/sanity-exporter sanity-exporter-macos
           chmod +x sanity-exporter-linux sanity-exporter-macos
           
-      # Используем официальное действие для создания релизов
       - name: Create Release
-        uses: actions/create-release@v2
         id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: "Release ${{ github.ref_name }}"
@@ -117,11 +116,11 @@ jobs:
             - macOS: `sanity-exporter-macos`
           draft: false
           prerelease: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Upload Windows Asset
-        uses: actions/upload-release-asset@v2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sanity-exporter-windows.exe
@@ -129,7 +128,9 @@ jobs:
           asset_content_type: application/octet-stream
           
       - name: Upload Linux Asset
-        uses: actions/upload-release-asset@v2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sanity-exporter-linux
@@ -137,7 +138,9 @@ jobs:
           asset_content_type: application/octet-stream
           
       - name: Upload macOS Asset
-        uses: actions/upload-release-asset@v2
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sanity-exporter-macos
