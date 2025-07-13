@@ -21,12 +21,12 @@ pip install -r requirements.txt
 
 ## Interactive Mode
 ```bash
-python sanity_exporter.py
+python sanity-exporter.py
 ```
 
 ## CLI Mode
 ```bash
-python sanity_exporter.py --dir /path/to/project --output export --format html --mode both
+python sanity-exporter.py --dir /path/to/project --output export --format html --mode both
 ```
 
 ## Options
@@ -43,5 +43,5 @@ python sanity_exporter.py --dir /path/to/project --output export --format html -
 ## Example
 Export Android project with template:
 ```bash
-python sanity_exporter.py --dir ~/projects/myapp --template Android --format json
+python sanity-exporter.py --dir ~/projects/myapp --template Android --format json
 ```
