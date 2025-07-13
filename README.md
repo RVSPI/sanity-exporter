@@ -1,6 +1,6 @@
 # SANITY Exporter
 
-Universal console utility to export project structure and files contents to TXT/JSON/HTML formats.
+Universal console utility to export folders structure and files contents to TXT/JSON/HTML formats.
 Perfect for documentation, code reviews, and project analysis.
 
 ## Features
